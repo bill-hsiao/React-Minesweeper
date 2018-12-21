@@ -20,6 +20,13 @@ class Board {
             i --;
           } else {
             cell.mine = true;
+            let neighbors = this.getCellNeighbors(loc)
+            // this.addNum.apply(this, neighbors)
+            neighbors.forEach((a) => {
+              this.addNum(a)
+            })
+            console.log(loc);
+            console.log(neighbors);
           }
           // cell.mine ? (i --) : (cell.mine = true)
         }
@@ -76,24 +83,48 @@ class Board {
     setFlag(cell) {
       this.cell.flagged = true;
     }
+    addNum(id) {
+      let cell = this.getCellByIndex(id);
+      cell.num = cell.num + 1;
+    }
+    // check(id) {
+    //   let cell = this.getCellByIndex(id);
+    //   if (cell.mine) {
+    //     return 1
+    //   } else {
+    //     return 0
+    //   }
+    // }
     reveal(id) {
+      console.log(id);
       //onsole.log(this);
       let cell = this.getCellByIndex(id);
       // console.log(cell);
+      if (cell.num === 0 && !cell.revealed) {
+        let neighbors = this.getCellNeighbors(id)
+         this.reveal.apply(this, neighbors)
+
+      }
+      console.log(cell);
       if (cell.revealed || cell.flagged) {
-        return this.cells
+        return cell
       }
       if (cell.mine) {
         cell.revealed = true;
         cell.display = "💣";
-        return this.cells//reveal board
+        //reveal board
+        return cell//reveal board
       }
-      if (!cell.mine && !cell.flagged && !cell.revealed) {
+      if (!cell.mine && !cell.flagged && !cell.revealed && cell.num > 0) {
         cell.revealed = true;
         let neighbors = this.getCellNeighbors(id)
-        //this.reveal.apply(null, neighbors)
+        // cell.num += (this.check.apply(this, neighbors))
+        // console.log(this);
+        // console.log(neighbors);
+
+      //  this.reveal.apply(this, neighbors)
       }
-      return this.cells
+      return cell
     }
 
 

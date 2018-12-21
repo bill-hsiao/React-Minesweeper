@@ -8,33 +8,44 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      game: new Board(10, 10, 10)
+      game: new Board(10, 10, 10),
+      justRevealed: null,
+      cellContents: null
     }
   }
+
   reveal(id) {
-    this.state.game.reveal.bind(this.state.game)
-    this.state.game.reveal(id)
+    // console.log(this.state.game.reveal);
+    const cell = this.state.game.reveal(id)
+    // console.log(cell);
+    const game = this.state.game;
+    return {
+      game: this.state.game,
+      justRevealed: id,
+      cellContents: cell.display
+    }
   }
-  getDisplay = id => {
-    let cell = this.state.game.getCellByIndex(id)
-    // let state = {
-    //   value: cell.display
-    // }
-    // console.log(state);
-    // return state
-    console.log(cell);
-    this.reveal(id);
-    console.log(cell.display);
-  }
+  
+
+  setDisplay = (id) => {
+      this.state.game.getCellByIndex.bind(this.state.game)
+      let cell = this.state.game.getCellByColRow(id)
+      return {
+        game: this.state.game,
+        justRevealed: id,
+        cellContents: cell.display
+        }
+
+    }
   handleClick = id => {
     this.setState(this.reveal(id))
-    this.getDisplay(id)
+    // this.getDisplay(id)
   }
 
   render() {
     return (
       <div className="App">
-        <BoardView clickHandler={this.handleClick} setDisplay={this.getDisplay} />
+        <BoardView clickHandler={this.handleClick} updateMethod={this.setDisplay} game={this.state} />
       </div>
     );
   }

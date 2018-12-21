@@ -3,7 +3,7 @@ class Cell {
         this.mine = false;
         this.revealed = false;
         this.flagged = false;
-        this.num = null;
+        this.num = 0;
         this.display = "";
     }
 
