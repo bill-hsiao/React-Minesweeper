@@ -21,30 +21,30 @@ class Board {
           } else {
             cell.mine = true;
             let neighbors = this.getCellNeighbors(loc)
-            // this.addNum.apply(this, neighbors)
             neighbors.forEach((a) => {
               this.addNum(a)
             })
             console.log(loc);
             console.log(neighbors);
           }
-          // cell.mine ? (i --) : (cell.mine = true)
         }
     }
 
     getCellByColRow(c, r) {
-    //  console.log(this.cells[c][r]);
-
+      c = parseInt(c);
+      r = parseInt(r);
       return this.cells[c][r]
     }
 
     getCellByIndex(index) {
+      index = parseInt(index)
       let r, c;
       r = (index % this.width)
       c = (index - r) / this.width
       return this.getCellByColRow(c, r)
     }
     getCellNeighbors(id) {
+      id = parseInt(id)
       let r = id % this.width;
       let c = (id - r) / this.width;
       let top = id - this.width;
@@ -84,50 +84,32 @@ class Board {
       this.cell.flagged = true;
     }
     addNum(id) {
+      id = parseInt(id);
       let cell = this.getCellByIndex(id);
       cell.num = cell.num + 1;
     }
-    // check(id) {
-    //   let cell = this.getCellByIndex(id);
-    //   if (cell.mine) {
-    //     return 1
-    //   } else {
-    //     return 0
-    //   }
-    // }
-    reveal(id) {
-      console.log(id);
-      //onsole.log(this);
-      let cell = this.getCellByIndex(id);
-      // console.log(cell);
-      if (cell.num === 0 && !cell.revealed) {
-        let neighbors = this.getCellNeighbors(id)
-         this.reveal.apply(this, neighbors)
 
-      }
-      console.log(cell);
-      if (cell.revealed || cell.flagged) {
+    reveal(id) {
+      let cell = this.getCellByIndex(id);
+      if (cell.revealed) {
+        console.log('already revealed');
         return cell
       }
-      if (cell.mine) {
+      if (!cell.revealed) {
         cell.revealed = true;
-        cell.display = "💣";
-        //reveal board
-        return cell//reveal board
-      }
-      if (!cell.mine && !cell.flagged && !cell.revealed && cell.num > 0) {
-        cell.revealed = true;
-        let neighbors = this.getCellNeighbors(id)
-        // cell.num += (this.check.apply(this, neighbors))
-        // console.log(this);
-        // console.log(neighbors);
-
-      //  this.reveal.apply(this, neighbors)
+        if (cell.num === 0) {
+          cell.display = 0;
+          let neighbors = this.getCellNeighbors(id)
+          neighbors.forEach((a) => this.reveal(a))
+        }
+        if (!cell.mine) {
+          cell.display = cell.num;
+        }
+        if (cell.mine) {
+          cell.display = "B";
+        }
       }
       return cell
     }
-
-
-
 }
 export default Board;
