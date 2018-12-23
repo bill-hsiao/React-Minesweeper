@@ -1,19 +1,31 @@
 
-.myButton {
-	background-color:#44c767;
-	border:3px solid #18ab29;
+Button {
+	background-color:#B3B3B3;
+	border:1px solid #6D6D6D;
 	display:inline-flex;
 	cursor:pointer;
-	color:#ffffff;
-	font-family:Trebuchet MS;
-	font-size:10px;
-	padding:10px 10px;
+	color: white;
+	font-family:Arial MS;
+	font-size:15px;
+	padding:15px 15px;
+	min-width: 20px;
+	max-width: 20px;
+	min-height: 20px;
+	max-height: 20px;
+
 	text-decoration:none;
 }
 .myButton:hover {
-	background-color:#5cbf2a;
+	background-color:#B3B3B3;
 }
 .myButton:active {
 	position:relative;
 	top:1px;
+}
+.unrevealed {
+	color: #B3B3B3;
+}
+.revealed {
+	color: black;
+
 }

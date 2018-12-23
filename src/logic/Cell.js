@@ -4,7 +4,7 @@ class Cell {
         this.revealed = false;
         this.flagged = false;
         this.num = 0;
-        this.display = "   ";
+        this.display = "0";
     }
 
 }

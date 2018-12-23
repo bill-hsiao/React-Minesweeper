@@ -9,7 +9,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Board />
+        <Board width={10} length={10} mineCount={10}/>
       </div>
     );
   }

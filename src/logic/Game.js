@@ -28,9 +28,11 @@ class Board {
             console.log(neighbors);
           }
         }
+        // this.getCellByColRow.bind(this)
     }
 
     getCellByColRow(c, r) {
+      this.getCellByColRow.bind(this)
       c = parseInt(c);
       r = parseInt(r);
       return this.cells[c][r]
@@ -90,26 +92,31 @@ class Board {
     }
 
     reveal(id) {
+      id = parseInt(id);
       let cell = this.getCellByIndex(id);
       if (cell.revealed) {
-        console.log('already revealed');
-        return cell
+        return
       }
       if (!cell.revealed) {
         cell.revealed = true;
-        if (cell.num === 0) {
-          cell.display = 0;
-          let neighbors = this.getCellNeighbors(id)
-          neighbors.forEach((a) => this.reveal(a))
-        }
-        if (!cell.mine) {
-          cell.display = cell.num;
-        }
         if (cell.mine) {
           cell.display = "B";
+          return
+        } else if (!cell.mine) {
+          cell.display = cell.num
+          if (cell.num === 0) {
+            cell.display = 0;
+
+            let neighbors = this.getCellNeighbors(id)
+            neighbors.forEach((a) => {a = parseInt(a); this.reveal(a)})
+          }
+
         }
+
+      
+
       }
-      return cell
+      return
     }
 }
 export default Board;
